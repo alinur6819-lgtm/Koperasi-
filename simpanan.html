@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Simpanan</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f4f6f9;
+  font-size:14px;
+}
+
+/* HEADER */
+header{
+  background:#1e90ff;
+  color:white;
+  padding:12px 15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+header h3{
+  margin:0;
+  font-size:16px;
+}
+
+header button{
+  background:#ff5252;
+  border:none;
+  color:white;
+  padding:7px 12px;
+  border-radius:6px;
+  font-size:13px;
+  cursor:pointer;
+}
+
+/* CONTAINER */
+.container{
+  padding:15px;
+}
+
+/* FORM */
+form{
+  background:white;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:15px;
+  box-shadow:0 3px 8px rgba(0,0,0,.08);
+}
+
+form select,
+form input{
+  width:100%;
+  padding:10px;
+  margin:6px 0;
+  border-radius:6px;
+  border:1px solid #ccc;
+  font-size:14px;
+}
+
+form button{
+  width:100%;
+  margin-top:8px;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  background:#1e90ff;
+  color:white;
+  font-weight:bold;
+  font-size:14px;
+  cursor:pointer;
+}
+
+/* EXPORT BUTTON */
+.export-group{
+  display:flex;
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.export{
+  flex:1;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:14px;
+}
+
+.export.pdf{
+  background:#1e90ff;
+  color:white;
+}
+
+.export.wa{
+  background:#25d366;
+  color:white;
+}
+
+/* TABLE */
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:white;
+  font-size:13px;
+}
+
+th, td{
+  padding:9px;
+  border:1px solid #ddd;
+  text-align:center;
+}
+
+th{
+  background:#f1f1f1;
+}
+
+/* HP KECIL */
+@media(max-width:480px){
+  header h3{font-size:15px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h3>Data Simpanan</h3>
+  <div>
+     
+    <button onclick="location.href='dashboard.html'">Dashboard</button>
+   </div>
+</header>
+
+<div class="container">
+
+  <form onsubmit="simpanSimpanan(event)">
+    <select id="anggota" required></select>
+
+    <select id="jenis">
+      <option value="Pokok">Simpanan Pokok</option>
+      <option value="Wajib">Simpanan Wajib</option>
+      <option value="Sukarela">Simpanan Sukarela</option>
+    </select>
+
+    <input type="number" id="jumlah" placeholder="Jumlah Simpanan" required>
+    <input type="date" id="tanggal" required>
+
+    <button type="submit">💾 Simpan</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Tanggal</th>
+        <th>Anggota</th>
+        <th>Jenis</th>
+        <th>Jumlah</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody id="listSimpanan"></tbody>
+  </table>
+
+</div>
+
+<script src="js/storage.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/simpanan.js"></script>
+<script>
+  cekLogin();
+  loadAnggota();
+  loadSimpanan();
+</script>
+
+</body>
+</html>
