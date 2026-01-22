@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rekap Kas</title>
+
+<style>
+:root{
+  --primary:#1e90ff;
+  --bg:#f4f6f9;
+  --card:#ffffff;
+  --success:#2ecc71;
+  --danger:#e74c3c;
+  --text:#333;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Segoe UI, Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+header{
+  background:linear-gradient(135deg,#1e90ff,#4facfe);
+  color:white;
+  padding:16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+header h3{margin:0}
+
+header button{
+  background:white;
+  color:#1e90ff;
+  border:none;
+  padding:6px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.container{
+  padding:16px;
+  max-width:1100px;
+  margin:auto;
+}
+
+.box{
+  background:var(--card);
+  padding:16px;
+  border-radius:12px;
+  margin-bottom:20px;
+  box-shadow:0 4px 10px rgba(0,0,0,.08);
+}
+
+.summary{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:12px;
+  margin-bottom:20px;
+}
+
+.summary div{
+  padding:18px;
+  border-radius:14px;
+  text-align:center;
+  font-weight:bold;
+  box-shadow:0 4px 10px rgba(0,0,0,.08);
+}
+
+.summary span{
+  display:block;
+  font-size:20px;
+  margin-top:6px;
+}
+
+.in{background:#eafaf1;color:var(--success)}
+.out{background:#fdecea;color:var(--danger)}
+.summary div:not(.in):not(.out){
+  background:#eef5ff;
+  color:#1e90ff;
+}
+
+/* FORM */
+input,select{
+  width:100%;
+  padding:10px;
+  margin:6px 0;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+header button{
+  background:#ff5252;
+  border:none;
+  color:white;
+  padding:6px 10px;
+  border-radius:5px;
+}
+button{
+  padding:8px 14px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+button:hover{opacity:.9}
+
+button[onclick*="simpan"]{
+  background:var(--primary);
+  color:white;
+}
+
+/* TABLE */
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:14px;
+}
+
+th{
+  background:#f0f3f7;
+  padding:10px;
+}
+
+td{
+  padding:8px;
+  border-bottom:1px solid #eee;
+}
+
+tr:hover{background:#f9fbfd}
+
+/* AKSI */
+td button{
+  margin:2px;
+  font-size:12px;
+}
+
+td button:first-child{
+  background:#f1c40f;
+  color:#000;
+}
+
+td button:last-child{
+  background:#e74c3c;
+  color:white;
+}
+
+/* EXPORT BUTTON */
+.export{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.export button{
+  background:#2d3436;
+  color:white;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  header h3{font-size:16px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h3>Rekap Kas Masuk & Keluar</h3>
+  <button onclick="location.href='dashboard.html'">Dashboard</button>
+</header>
+
+<div class="container">
+
+  <!-- INPUT KAS -->
+  <div class="box">
+    <h4>➕ Input Kas Manual</h4>
+
+    <input type="date" id="tglKas"><br>
+    <input type="text" id="ketKas" placeholder="Keterangan"><br>
+
+    <select id="jenisKas">
+      <option value="MASUK">Kas Masuk</option>
+      <option value="KELUAR">Kas Keluar</option>
+    </select><br>
+
+    <input type="number" id="jumlahKas" placeholder="Jumlah"><br>
+
+    <button onclick="simpanKas()">💾 Simpan</button>
+  </div>
+
+  <!-- TABEL -->
+  <div class="box">
+    <h4>📋 Detail Kas</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Tanggal</th>
+          <th>Keterangan</th>
+          <th>Masuk</th>
+          <th>Keluar</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="listKas"></tbody>
+    </table>
+  </div>
+
+  <!-- EXPORT -->
+  
+</div>
+
+<!-- LIBRARY -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+<script src="js/storage.js"></script>
+<script src="js/input_kas.js"></script>
+
+<script>
+  loadKas();
+</script>
+
+</body>
+</html>
